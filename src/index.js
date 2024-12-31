@@ -1,12 +1,6 @@
-import { testDictionary, realDictionary } from './dictionary.js';
 import { items } from './items.js';
 
-// for testing purposes, make sure to use the test dictionary
-console.log('test dictionary:', testDictionary);
-
-const dictionary = realDictionary;
 const state = {
-  secret: dictionary[Math.floor(Math.random() * dictionary.length)],
   grid: Array(6)
     .fill()
     .map(() => Array(5).fill('')),
