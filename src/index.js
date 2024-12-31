@@ -86,6 +86,13 @@ function handleGuess(guess) {
 
       const inputContainer = document.querySelector('.input-container');
       inputContainer.style.display = 'none';
+
+      // Add the answer to the guess counter with a checkmark
+      const counter = document.getElementById('guess-counter');
+      const answerSpan = document.createElement('span');
+      answerSpan.className = 'answer-display';
+      answerSpan.textContent = ` ✅ $${state.selectedItem.price_dollar_cents.toFixed(2)}`;
+      counter.appendChild(answerSpan);
     } else if (priceDiff <= 1.00) {
       guessBox.style.background = 'var(--close)';
       arrowBox.style.background = 'var(--close)';
@@ -128,6 +135,13 @@ function handleGuess(guess) {
     if (state.currentRow >= 6) {
       const inputContainer = document.querySelector('.input-container');
       inputContainer.style.display = 'none';
+
+      // Add the answer to the guess counter
+      const counter = document.getElementById('guess-counter');
+      const answerSpan = document.createElement('span');
+      answerSpan.className = 'answer-display';
+      answerSpan.textContent = ` ❌ Answer: $${state.selectedItem.price_dollar_cents.toFixed(2)}`;
+      counter.appendChild(answerSpan);
     }
   }
 }
@@ -217,7 +231,15 @@ function drawImage(container) {
 
 function updateGuessCounter() {
   const counter = document.getElementById('guess-counter');
-  counter.textContent = `Guess: ${state.currentRow}/6`;
+  const existingAnswerSpan = counter.querySelector('.answer-display');
+
+  if (existingAnswerSpan) {
+    // If there's an existing answer span, preserve it
+    counter.textContent = `Guess: ${state.currentRow}/6`;
+    counter.appendChild(existingAnswerSpan);
+  } else {
+    counter.textContent = `Guess: ${state.currentRow}/6`;
+  }
 }
 
 function startup() {
